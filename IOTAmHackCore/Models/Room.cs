@@ -12,4 +12,9 @@ namespace IOTAmHackCore.Models
         public string Name { get; set; }
         public bool IsFree { get; set; }
     }
+
+    public class RoomViewModel
+    {
+        public List<Room> Rooms { get; set; }
+    }
 }
