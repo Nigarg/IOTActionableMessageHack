@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using IOTAmHackCore.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+
+using IOTAmHackCore.Helpers;
 
 namespace IOTAmHackCore.Controllers
 {
@@ -32,7 +35,7 @@ namespace IOTAmHackCore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Visitor visitor)
+        public IActionResult CreateAsync([FromBody] Visitor visitor)
         {
             if (visitor == null)
             {
@@ -40,6 +43,15 @@ namespace IOTAmHackCore.Controllers
             }
 
             Visitors.Add(visitor);
+
+            //// Send the Adaptive card
+            //string[] toRecipients = new string[]
+            //{
+            //    "admin@inlineconfig.onmicrosoft.com"
+            //};
+
+            //await AMHelper.SendActionableMessageAsync(toRecipients, visitor.Image, visitor.Name);
+
             return CreatedAtRoute("GetVisitor", new { id = visitor.Key }, visitor);
         }
 

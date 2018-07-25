@@ -11,6 +11,8 @@ namespace IOTAmHackCore.Models
         public string Key { get; set; }
         public string Name { get; set; }
         public bool IsFree { get; set; }
+        public int Timestamp { get; set; }
+        public bool Activity { get; set; }
     }
 
     public class RoomViewModel

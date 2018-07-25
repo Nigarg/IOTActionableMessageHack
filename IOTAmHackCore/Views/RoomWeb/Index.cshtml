@@ -6,34 +6,12 @@
 }
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Key
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Free
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Rooms)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Key)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsFree)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>  
+    <div class="tiles-grid tiles-group size-3" data-group-title="" style="margin-right: auto; margin-left: auto; float: none">
+    @foreach (var item in Model.Rooms)
+    {
+        <div data-role="tile" data-size="medium" class=@(item.IsFree ? "bg-green" : "bg-red")>
+            <span class="branding-bar">@item.Key</span>
+            <span class="badge-bottom">@item.Name</span>
+        </div>
+    }
+    </div>

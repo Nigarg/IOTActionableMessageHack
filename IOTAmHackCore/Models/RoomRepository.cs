@@ -14,7 +14,9 @@ namespace IOTAmHackCore.Models
 
         public RoomRepository()
         {
-            Add(new Room() {Name = "Room1"});
+            Add(new Room() { Name = "FocusRoom", IsFree = true});
+            Add(new Room() { Name = "Garage", IsFree = true });
+            Add(new Room() { Name = "ZoneRoom" });
         }
 
         public IEnumerable<Room> GetAll()
@@ -24,8 +26,30 @@ namespace IOTAmHackCore.Models
 
         public void Add(Room item)
         {
-            item.Key = Guid.NewGuid().ToString();
-            _rooms[item.Key] = item;
+            int _min = 1000;
+            int _max = 9999;
+            Random _rdm = new Random();
+            int key = _rdm.Next(_min, _max);
+            item.Key = item.Key ?? key.ToString();
+            if (!_rooms.Keys.Contains(item.Key))
+            {
+                item.Timestamp = (Int32) (DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                _rooms[item.Key] = item;
+            }
+            else if (item.Activity)
+            {
+                item.IsFree = false;
+                _rooms[item.Key] = item;
+            }
+            else
+            {
+                Int32 unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                if (unixTimestamp - _rooms[item.Key].Timestamp > 60)
+                {
+                    item.IsFree = true;
+                    _rooms[item.Key] = item;
+                }
+            }
         }
 
         public Room Find(string key)

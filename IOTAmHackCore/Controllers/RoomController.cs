@@ -39,6 +39,7 @@ namespace IOTAmHackCore.Controllers
             }
 
             Rooms.Add(room);
+
             return CreatedAtRoute("GetRoom", new { id = room.Key }, room);
         }
 
